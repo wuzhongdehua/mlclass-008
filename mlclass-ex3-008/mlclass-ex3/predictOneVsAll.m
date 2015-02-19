@@ -31,9 +31,10 @@ X = [ones(m, 1) X];
 %       
 
 
-
-
-
+% The second vector of max, which are the 'column indices' in each row where
+% that maximum value can be found.
+% So p can directly represent the vector of the corresponding class.
+[_, p] = max(sigmoid(X * all_theta'), [], 2);
 
 
 % =========================================================================
