@@ -40,7 +40,7 @@ grad = zeros(size(theta));
 % the same code with costFunctionReg.m in ex2.
 % theta(1) is not regularized
 % and the slicing size(theta) can be replaced by 'end'
-J = sum((-y) .* log(sigmoid(X*theta)) - (1-y) .* log(1 - sigmoid(X*theta))) / m ...
+J = sum(-y .* log(sigmoid(X*theta)) - (1-y) .* log(1 - sigmoid(X*theta))) / m ...
   + lambda * theta(2:end)' * theta(2:end) / (2*m);
 
 % theta(1) is not regularized
