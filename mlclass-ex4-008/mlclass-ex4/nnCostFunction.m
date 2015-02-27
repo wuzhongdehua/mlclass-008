@@ -62,7 +62,36 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% 1) Feedforward and cost function
 
+% The simple way to regularize y to the output labels.
+y_trans = [];
+for K = 1:num_labels
+  y_trans = [y_trans y==K];
+end
+% An elegant way to labels y, but error occurs by this...
+% y_trans = eye(10)(y,:);
+
+X = [ones(m, 1) X];
+A1 = X;
+
+Z2 = A1 * Theta1';
+A2 = sigmoid(Z2);
+A2 = [ones(m, 1) A2];
+
+Z3 = A2 * Theta2';
+A3 = sigmoid(Z3);
+
+% The code from the previous exercise doesn't work.
+% J = sum(sum(-y_trans .* log(A3) - (1-y_trans) .* log(1-A3))) / m;
+% Implement the cost function using to for loop.
+for i = 1:m
+  for k = 1:num_labels
+    J = J + (-y_trans(i,k)) * log(A3(i,k)) - (1-y_trans(i,k)) * log(1-A3(i,k));
+  end
+end
+
+J = J / m;
 
 
 
