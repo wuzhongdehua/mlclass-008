@@ -96,14 +96,23 @@ J = J / m;
 
 
 % 2) Regularized cost function
-
 regularized = (lambda / (2*m)) * ((sum(sum(Theta1(:,2:end) .** 2))) + ...
               sum(sum(Theta2(:,2:end) .** 2)));
 J = J + regularized; 
 
 
+% 3) Backpropagation algorithm
+delta_3 = A3 .- y_trans;
+delta_2 = (delta_3 * Theta2) .* sigmoidGradient([ones(size(Z2), 1) Z2]);
+% Removing δ0(2) corresponds to delta 2 = delta 2(2:end).
+delta_2 = delta_2(:, 2:end);
+Delta1 = delta_2' * A1;
+Delta2 = delta_3' * A2;
 
-
+% 4) Obtain the (unregularized) gradient for the neural network cost function
+% by dividing the accumulated gradients by m.
+Theta1_grad = Theta1_grad + Delta1 ./ m;
+Theta2_grad = Theta2_grad + Delta2 ./ m;
 
 
 
