@@ -64,7 +64,6 @@ Theta2_grad = zeros(size(Theta2));
 
 
 % 1) Feedforward and cost function
-
 % The simple way to regularize y to the output labels.
 y_trans = [];
 for K = 1:num_labels
@@ -115,13 +114,14 @@ Theta1_grad = Theta1_grad + Delta1 ./ m;
 Theta2_grad = Theta2_grad + Delta2 ./ m;
 
 
+% 5) Regularized gradient for the neural network cost function
+% The first column of Θ(l) is not regularized,
+% which is used for the bias term.
+R1 = (lambda/m) * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+R2 = (lambda/m) * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
 
-
-
-
-
-
-
+Theta1_grad = Theta1_grad + R1;
+Theta2_grad = Theta2_grad + R2;
 
 
 % -------------------------------------------------------------
