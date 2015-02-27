@@ -62,6 +62,7 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+
 % 1) Feedforward and cost function
 
 % The simple way to regularize y to the output labels.
@@ -94,6 +95,11 @@ end
 J = J / m;
 
 
+% 2) Regularized cost function
+
+regularized = (lambda / (2*m)) * ((sum(sum(Theta1(:,2:end) .** 2))) + ...
+              sum(sum(Theta2(:,2:end) .** 2)));
+J = J + regularized; 
 
 
 
