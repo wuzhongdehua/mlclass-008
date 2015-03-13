@@ -23,11 +23,22 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+suggest_values = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+possible_pairs = zeros(length(suggest_values), 2);
 
+for i = 1:length(suggest_values)
+  C = suggest_values(i);
+  for j = 1:length(suggest_values)
+    sigma = suggest_values(j);
+    model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+    predictions = svmPredict(model, Xval);
+    possible_pairs(i, j) = mean(double(predictions ~= yval));
+  end
+end
 
-
-
-
+[i, j] = find(possible_pairs == min(min(possible_pairs)));
+C = suggest_values(i);
+sigma = suggest_values(j);
 
 % =========================================================================
 
