@@ -34,10 +34,10 @@ for i = 1:K
       count += 1;
       total = total .+ X(j, :);
     end
-    if count != 0
-      % Handle the warning: division by zero
-      centroids(i,:) = total / count;
-    end
+  if count != 0
+    % Handle the warning: division by zero
+    centroids(i,:) = total / count;
+  end
   end
 end
 
